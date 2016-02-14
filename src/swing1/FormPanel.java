@@ -9,8 +9,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
@@ -27,6 +29,7 @@ public class FormPanel extends JPanel {
 	private JTextField occupationField;
 	private JButton okBtn;
 	private FormListener formListener;
+	private JList ageList;
 	
 	public FormPanel(){
 		Dimension dim = getPreferredSize();
@@ -39,7 +42,19 @@ public class FormPanel extends JPanel {
 		occupationLabel = new JLabel("Occupation: ");
 		nameField = new JTextField(10);
 		occupationField = new JTextField(10);
+		ageList = new JList();
 		
+		DefaultListModel ageModel = new DefaultListModel();
+		ageModel.addElement("Under 18");
+		ageModel.addElement("18 to 65");
+		ageModel.addElement("Over 65");
+
+		ageList.setPreferredSize(new Dimension(130, 68));
+		ageList.setBorder(BorderFactory.createEtchedBorder());
+
+		ageList.setModel(ageModel);
+		ageList.setSelectedIndex(1);
+
 		okBtn = new JButton("OK");
 		
 		okBtn.addActionListener(new ActionListener() {
@@ -47,7 +62,8 @@ public class FormPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				String name = nameField.getText();
 				String occupation = occupationField.getText();
-				
+				String ageCat = (String) ageList.getSelectedValue();
+				System.out.println("Age cat : " + ageCat);
 				FormEvent ev = new FormEvent(this, name, occupation);
 
 				if (formListener != null) {
@@ -99,13 +115,24 @@ public class FormPanel extends JPanel {
 		gc.anchor=GridBagConstraints.LINE_START;
 		add(occupationField,gc);
 		
-		////////// third row //////////
+		////////// Third row //////////
+
+		gc.weightx = 1;
+		gc.weighty = 0.2;
+
+		gc.gridy = 2;
+		gc.gridx = 1;
+
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		add(ageList, gc);
+
+		////////// Fourth row //////////
 		
 		gc.weightx=1;
 		gc.weighty=2.0;
 		
 		gc.gridx=1;
-		gc.gridy=2;
+		gc.gridy = 3;
 		
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		add(okBtn,gc);
