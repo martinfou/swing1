@@ -12,8 +12,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -33,6 +35,8 @@ public class FormPanel extends JPanel {
 	private JButton okBtn;
 	private FormListener formListener;
 	private JList ageList;
+	private JComboBox empCombo;
+
 
 	/**
 	 * Instantiates a new form panel.
@@ -49,6 +53,7 @@ public class FormPanel extends JPanel {
 		nameField = new JTextField(10);
 		occupationField = new JTextField(10);
 		ageList = new JList();
+		empCombo = new JComboBox();
 
 		DefaultListModel ageModel = new DefaultListModel();
 		ageModel.addElement(new AgeCategory(0, "Under 18"));
@@ -60,6 +65,12 @@ public class FormPanel extends JPanel {
 
 		ageList.setModel(ageModel);
 		ageList.setSelectedIndex(1);
+
+		DefaultComboBoxModel empComboModel = new DefaultComboBoxModel();
+		empComboModel.addElement("employed");
+		empComboModel.addElement("self-employed");
+		empComboModel.addElement("unemployed");
+		empCombo.setModel(empComboModel);
 
 		okBtn = new JButton("OK");
 
@@ -86,6 +97,11 @@ public class FormPanel extends JPanel {
 			}
 		});
 
+		layoutComponent();
+
+	}
+
+	public void layoutComponent() {
 		Border innerBorder = BorderFactory.createTitledBorder("Add Person");
 		Border outerBorder = BorderFactory.createEmptyBorder(5, 5, 5, 5);
 		setBorder(BorderFactory.createCompoundBorder(outerBorder, innerBorder));
@@ -139,6 +155,18 @@ public class FormPanel extends JPanel {
 
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		add(ageList, gc);
+		
+		
+		
+		/////////// another row //////////
+		gc.weightx = 1;
+		gc.weighty = 0.2;
+
+		gc.gridy++;
+		gc.gridx = 1;
+
+		gc.anchor = GridBagConstraints.FIRST_LINE_START;
+		add(ageList, gc);
 
 		////////// Fourth row //////////
 
@@ -146,11 +174,10 @@ public class FormPanel extends JPanel {
 		gc.weighty = 2.0;
 
 		gc.gridx = 1;
-		gc.gridy = 3;
+		gc.gridy++;
 
 		gc.anchor = GridBagConstraints.FIRST_LINE_START;
 		add(okBtn, gc);
-
 	}
 
 	public void setFormListener(FormListener formListener) {
