@@ -28,11 +28,13 @@ public class MainFrame extends JFrame {
 		});
 
 		formPanel.setFormListener(new FormListener() {
+			@Override
 			public void formEventOccured(FormEvent e) {
 				String name = e.getName();
 				String occupation = e.getOccupation();
+				int ageCat = e.getAgeCategory();
 
-				textPanel.appendText(name + " : " + occupation);
+				textPanel.appendText(name + " : " + occupation + " " + ageCat + "\n");
 			};
 		});
 

@@ -13,17 +13,26 @@ public class FormEvent extends EventObject {
 	/** The name. */
 	private String name;
 
+	/** The age category. */
+	private int ageCategory;
+
 	/**
 	 * Instantiates a new form event.
 	 *
-	 * @param source the source
-	 * @param name the name
-	 * @param occupation the occupation
+	 * @param source
+	 *            the source
+	 * @param name
+	 *            the name
+	 * @param occupation
+	 *            the occupation
+	 * @param ageCategory
+	 *            the age category
 	 */
-	public FormEvent(Object source, String name, String occupation) {
+	public FormEvent(Object source, String name, String occupation, int ageCategory) {
 		super(source);
 		this.name = name;
 		this.occupation = occupation;
+		this.setAgeCategory(ageCategory);
 	}
 
 	/**
@@ -70,5 +79,13 @@ public class FormEvent extends EventObject {
 	 */
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getAgeCategory() {
+		return ageCategory;
+	}
+
+	public void setAgeCategory(int ageCategory) {
+		this.ageCategory = ageCategory;
 	}
 }
